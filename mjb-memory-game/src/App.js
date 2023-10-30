@@ -1,19 +1,35 @@
 import "./App.css";
-import Typography from "@mui/material/Typography";
-import GameGrid from "./components/GameGrid";
+import React, { useState } from "react";
+import StartPage from "./pages/StartPage";
+import GridPage from "./pages/GridPage";
+import GameOverPage from "./pages/GameOverPage";
 
 function App() {
+  const [currentScreen, setCurrentScreen] = useState("start");
+  const [userName, setUserName] = useState("");
+  const [gameTime, setGameTime] = useState("");
+
   return (
     <div className="App">
-      <div className="Header">
-        <Typography variant="h3" paddingTop={5} color={"#0D2863"}>
-          MJB Memory Game
-        </Typography>
-      </div>
-      <div className="Body">
-        <GameGrid />
-      </div>
-      <div className="Footer">{/* Footer content */}</div>
+      {currentScreen === "start" && (
+        <StartPage
+          setUserName={setUserName}
+          onStart={() => setCurrentScreen("game")}
+        />
+      )}
+      {currentScreen === "game" && (
+        <GridPage
+          setGameTime={setGameTime}
+          onGameOver={() => setCurrentScreen("gameOver")}
+        />
+      )}
+      {currentScreen === "gameOver" && (
+        <GameOverPage
+          userName={userName}
+          gameTime={gameTime}
+          onRestart={() => setCurrentScreen("start")}
+        />
+      )}
     </div>
   );
 }
