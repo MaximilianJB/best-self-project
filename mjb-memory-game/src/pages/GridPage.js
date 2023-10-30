@@ -4,33 +4,39 @@ import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 export default function GamePage({ onGameOver, setGameTime }) {
+  const [time, setTime] = useState(0);
 
-    const [time, setTime] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime((prevTime) => {
+        const newTime = prevTime + 1;
+        setGameTime(newTime);
+        return newTime;
+      });
+    }, 1000);
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-          setTime(prevTime => prevTime + 1);
-          setGameTime(time);
-        }, 1000);
-      
-        return () => clearInterval(timer);
-      }, []);
-      
-  
-    return (
-      <div className="App">
-        <div className="Header">
-          <Typography variant="h3" paddingTop={5} paddingBottom={5} color={"#0D2863"}>
-            MJB Memory Match
-          </Typography>
-        </div>
-        <div className="Body">
-          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-            <Typography variant="h3">{time}</Typography>
-            <GameGrid onGameOver={onGameOver} />
-          </Box>
-        </div>
-        <div className="Footer"></div>
+    return () => clearInterval(timer);
+  }, [setGameTime]);
+
+  return (
+    <div className="App">
+      <div className="Header">
+        <Typography
+          variant="h3"
+          paddingTop={5}
+          paddingBottom={5}
+          color={"#0D2863"}
+        >
+          MJB Memory Match
+        </Typography>
       </div>
-    );
-  }
+      <div className="Body">
+        <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
+          <Typography variant="h3">{time}</Typography>
+          <GameGrid onGameOver={onGameOver} />
+        </Box>
+      </div>
+      <div className="Footer"></div>
+    </div>
+  );
+}
