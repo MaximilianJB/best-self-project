@@ -5,8 +5,8 @@ function Tile({ title, Component, color, isFlipped, onFlip, isCompleted }) {
 
   return (
     <Box
-      sx={{ width: "100%", paddingTop: "100%", position: "relative", cursor: "pointer" }}
-      onClick={onFlip}
+      sx={{ width: "100%", paddingTop: "100%", position: "relative", cursor: isCompleted ? "default" : "pointer" }}
+      onClick={isCompleted ? null : (isFlipped ? null : onFlip)}
     >
       <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}>
         <Paper

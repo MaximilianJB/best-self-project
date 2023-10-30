@@ -4,7 +4,7 @@ import StartPage from "./pages/StartPage";
 import GridPage from "./pages/GridPage";
 import GameOverPage from "./pages/GameOverPage";
 
-function App() {
+function App({ db }) {
   const [currentScreen, setCurrentScreen] = useState("start");
   const [userName, setUserName] = useState("");
   const [gameTime, setGameTime] = useState("");
@@ -15,12 +15,18 @@ function App() {
         <StartPage
           setUserName={setUserName}
           onStart={() => setCurrentScreen("game")}
+          database={db}
         />
       )}
       {currentScreen === "game" && (
         <GridPage
           setGameTime={setGameTime}
-          onGameOver={() => setCurrentScreen("gameOver")}
+          userName={userName}
+          gameTime={gameTime}
+          db={db}
+          onGameOver={() => {
+            setCurrentScreen("gameOver");
+          }}
         />
       )}
       {currentScreen === "gameOver" && (
@@ -28,6 +34,7 @@ function App() {
           userName={userName}
           gameTime={gameTime}
           onRestart={() => setCurrentScreen("start")}
+          database={db}
         />
       )}
     </div>

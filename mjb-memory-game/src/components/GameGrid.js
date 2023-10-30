@@ -9,15 +9,29 @@ import SavedSearchRoundedIcon from "@mui/icons-material/SavedSearchRounded";
 import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
 import NaturePeopleRoundedIcon from "@mui/icons-material/NaturePeopleRounded";
 import SecurityRoundedIcon from "@mui/icons-material/SecurityRounded";
+import { addDoc, collection } from "firebase/firestore";
 
-function GameGrid({ onGameOver }) {
+function GameGrid({ onGameOver, db, userName, gameTime }) {
   const [tilePairs, setTilePairs] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [completedIndices, setCompletedIndices] = useState([]);
 
+  const addData = async () => {
+    try {
+      const docRef = await addDoc(collection(db, "leaderboard"), {
+        userName: userName,
+        gameTime: gameTime,
+      });
+      console.log("Document written with ID:", docRef.id);
+    } catch (e) {
+      console.error("Error adding document:", e);
+    }
+  };
+
   useEffect(() => {
     // Check for win condition
     if (completedIndices.length === tilePairs.length && tilePairs.length !== 0) {
+      addData();
       onGameOver();
     }
   }, [completedIndices, tilePairs.length, onGameOver]);
@@ -116,8 +130,6 @@ function GameGrid({ onGameOver }) {
 
     setTilePairs(initialTilePairs);
   }, []);
-
-  console.log(completedIndices.length);
 
   return (
     <Box padding={3} width={"50%"} margin={"auto"}>

@@ -3,7 +3,7 @@ import GameGrid from "../components/GameGrid";
 import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
-export default function GamePage({ onGameOver, setGameTime }) {
+export default function GamePage({ onGameOver, setGameTime, userName, gameTime, db }) {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export default function GamePage({ onGameOver, setGameTime }) {
       <div className="Body">
         <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
           <Typography variant="h3">{time}</Typography>
-          <GameGrid onGameOver={onGameOver} />
+          <GameGrid onGameOver={onGameOver} userName={userName} gameTime={gameTime} db={db}/>
         </Box>
       </div>
       <div className="Footer"></div>
