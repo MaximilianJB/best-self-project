@@ -109,26 +109,23 @@ export default function StartPage({ onStart, setUserName, database }) {
           <Typography
             id="modal-title"
             textAlign={"center"}
-            variant="h4"
+            variant="h5"
             component="h2"
           >
             Welcome to MJB Memory Match!
           </Typography>
           <Typography id="modal-description" textAlign="center" sx={{ mt: 2 }}>
-            This game was created as a creative avenue for the Best Self Project
-            for the Hogan Program. In this game you must discover all of the
-            matching tiles in order to win. Don't forget though, the time is
-            ticking, and a fast time could place you on the leaderboard!
+            In this game you must discover all of the matching tiles in order to
+            win. Don't forget though, the time is ticking, and a fast time could
+            place you on the leaderboard!
           </Typography>
           <Typography
             id="modal-description"
             textAlign="center"
             sx={{ mt: 2, mb: 4 }}
           >
-            Each of the grid tiles in this game represent a different aspect of
-            Max that his close peers deemed to be what makes him his "Best
-            Self". Learn more about all the tile choices below, and more about
-            Max in the process!
+            Each tile represents a different aspect of Max's "Best Self", learn
+            more about the choices below.
           </Typography>
           <TileStepper />
           <Button onClick={handleCloseModal} variant="outlined" sx={{ mt: 4 }}>
@@ -177,11 +174,7 @@ export default function StartPage({ onStart, setUserName, database }) {
           >
             Start Game
           </Button>
-          <Button
-            size="small"
-            sx={{ marginTop: 3 }}
-            onClick={handleOpenQR}
-          >
+          <Button size="small" sx={{ marginTop: 3 }} onClick={handleOpenQR}>
             Let the class play!
           </Button>
         </Paper>
