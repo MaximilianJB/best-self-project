@@ -24,7 +24,7 @@ export default function GamePage({ onGameOver, setGameTime, userName, gameTime, 
         <Typography
           variant="h3"
           paddingTop={5}
-          paddingBottom={5}
+          paddingBottom={1}
           color={"#0D2863"}
         >
           MJB Memory Match
