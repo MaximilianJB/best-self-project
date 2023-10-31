@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Grid } from "@mui/material";
 import Tile from "./Tile";
-import ComputerIcon from "@mui/icons-material/Computer";
-import WbSunnyRoundedIcon from "@mui/icons-material/WbSunnyRounded";
-import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
-import HandshakeRoundedIcon from "@mui/icons-material/HandshakeRounded";
-import SavedSearchRoundedIcon from "@mui/icons-material/SavedSearchRounded";
-import EmojiEventsRoundedIcon from "@mui/icons-material/EmojiEventsRounded";
-import NaturePeopleRoundedIcon from "@mui/icons-material/NaturePeopleRounded";
-import SecurityRoundedIcon from "@mui/icons-material/SecurityRounded";
+import tileData from "./tileData";
 import { addDoc, collection } from "firebase/firestore";
 
 function GameGrid({ onGameOver, db, userName, gameTime }) {
@@ -30,7 +23,10 @@ function GameGrid({ onGameOver, db, userName, gameTime }) {
 
   useEffect(() => {
     // Check for win condition
-    if (completedIndices.length === tilePairs.length && tilePairs.length !== 0) {
+    if (
+      completedIndices.length === tilePairs.length &&
+      tilePairs.length !== 0
+    ) {
       addData();
       onGameOver();
     }
@@ -48,9 +44,12 @@ function GameGrid({ onGameOver, db, userName, gameTime }) {
         const [firstIndex, secondIndex] = newFlippedIndices;
         if (tilePairs[firstIndex].title === tilePairs[secondIndex].title) {
           setCompletedIndices((prevCompleted) => {
-            const newCompleted = new Set([...prevCompleted, ...newFlippedIndices]);
+            const newCompleted = new Set([
+              ...prevCompleted,
+              ...newFlippedIndices,
+            ]);
             return Array.from(newCompleted);
-          });          
+          });
         }
       }
 
@@ -79,48 +78,7 @@ function GameGrid({ onGameOver, db, userName, gameTime }) {
       ];
     }
 
-    const tileData = [
-      {
-        title: "Coding",
-        Component: <ComputerIcon fontSize="large" />,
-        color: "#A8D5E2",
-      },
-      {
-        title: "Leader",
-        Component: <EmojiEventsRoundedIcon fontSize="large" />,
-        color: "#D5A8D8",
-      },
-      {
-        title: "Communicator",
-        Component: <PhoneRoundedIcon fontSize="large" />,
-        color: "#F2CF63",
-      },
-      {
-        title: "Optimistic",
-        Component: <WbSunnyRoundedIcon fontSize="large" />,
-        color: "#F4CDAF",
-      },
-      {
-        title: "Confident",
-        Component: <SecurityRoundedIcon fontSize="large" />,
-        color: "#C3D8A8",
-      },
-      {
-        title: "Humble",
-        Component: <NaturePeopleRoundedIcon fontSize="large" />,
-        color: "#E7A8A8",
-      },
-      {
-        title: "Curious",
-        Component: <SavedSearchRoundedIcon fontSize="large" />,
-        color: "#A8B6D5",
-      },
-      {
-        title: "Convener",
-        Component: <HandshakeRoundedIcon fontSize="large" />,
-        color: "#D5CBA8",
-      },
-    ];
+    
 
     const initialTilePairs = tileData.flatMap((data) =>
       createPair(data.title, data.Component, data.color)
@@ -132,7 +90,7 @@ function GameGrid({ onGameOver, db, userName, gameTime }) {
   }, []);
 
   return (
-    <Box padding={3} width={"50%"} margin={"auto"}>
+    <Box padding={3} sx={{ width: { xs: "80%", md: "50%" } }} margin={"auto"}>
       <Grid container spacing={2} columns={8}>
         {tilePairs.map((tile, index) => (
           <Grid key={index} item xs={2}>
